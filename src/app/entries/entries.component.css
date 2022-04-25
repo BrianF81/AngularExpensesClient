@@ -1,0 +1,50 @@
+table {
+    width: 50%;
+}
+/*.mat-row.highlight {*/
+  /*background: lightblue;
+  animation: highlight 3s;*/
+  /*animation: opacity linear .5s 2 forwards;
+  opacity: 1;
+}*/
+.mat-column-Actions {
+  flex: none;
+  width:28%;
+}
+.entries-table-bottom-container {
+  display: inline-block;
+  width: 50%;
+  padding-top: 12px;
+}
+
+.mat-cell.highlight {
+  /*background: lightblue;*/
+  /*animation: highlight 3s;*/
+  animation: opacity linear .5s 2 forwards;
+  opacity: 1;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .5
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/*@keyframes highlight {
+  0% {
+    background: lightblue
+  }
+
+  100% {
+    background: none;
+  }
+}
+*/

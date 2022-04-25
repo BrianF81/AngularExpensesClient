@@ -1,0 +1,27 @@
+.update-entry-bottom-container {
+  display: inline-block;
+  width: 100%;
+  /*margin-left: 20%;*/
+}
+.new-entry-status {
+  display: inline-block;
+  padding-top: 15px;
+}
+.update-entry-close-btn {
+  /*display: inline;*/
+  /*float: left;*/
+}
+.update-entry-save-btn {
+  float: right;
+}
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hover-class:hover {
+  font-weight: bold;
+  /*box-shadow: 0 0.1em 0.1em -0.1em var(--hover);*/
+  transform: translateY(-0.1em);
+  
+}
