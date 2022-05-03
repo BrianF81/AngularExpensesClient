@@ -1,5 +1,21 @@
 <h2 mat-dialog-title class="dialog-title">Delete Entry</h2>
-<mat-dialog-content>This will delete this entry and cannot be undone.</mat-dialog-content>
+<table>
+  <tr>
+    <td style="padding-right: 1rem;"><b>Description:</b></td>
+    <td>{{ data.entry.Description }}</td>
+  </tr>
+  <tr>
+    <td><b>Type:</b></td>
+    <td>{{ (data.entry.IsExpense) ? 'Expense' : 'Income' }}</td>
+  </tr>
+  <tr>
+    <td><b>Value:</b></td>
+    <td>${{ data.entry.Value }}</td>
+  </tr>
+</table>
+<p></p>
+<mat-dialog-content>This will permanently delete this entry and cannot be undone.</mat-dialog-content>
+<p></p>
 <mat-dialog-actions>
   <div class="delete-entry-bottom-container">
     <button class="mat-raised-button hover-class" (click)="cancel()">Cancel</button><button class="mat-raised-button mat-primary delete-entry-delete-btn hover-class" (click)="delete()">Delete</button>

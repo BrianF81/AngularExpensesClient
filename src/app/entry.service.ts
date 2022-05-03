@@ -12,6 +12,10 @@ export class EntryService {
 
   constructor(private http: HttpClient) { }
 
+  getEntryByID(ID: number) {
+    return this.http.get(this.baseUrl + '/' + ID);
+  }
+  
   getAll() {
     return this.http.get(this.baseUrl);
   }

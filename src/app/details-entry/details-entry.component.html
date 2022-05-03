@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Entry Details</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <b>Description: &nbsp;</b> {{ entry.description }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <b>Entry Type: &nbsp;</b> {{ (entry.isExpense) ? 'Expense' : 'Income' }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <b>Value: &nbsp;</b> ${{ entry.value }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+      <button mat-button [routerLink]="'/'">Close</button>
+    </mat-card-actions>
+</mat-card>

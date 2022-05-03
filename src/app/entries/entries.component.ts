@@ -6,6 +6,7 @@ import { EntryElement } from '../interfaces/EntryElement';
 import { UpdateEntryComponent } from '../update-entry/update-entry.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { DeleteEntryComponent } from '../delete-entry/delete-entry.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-entries',
@@ -29,12 +30,14 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     this.selectedRowIndexValue = -1;
     this.selectedRowIndexDesc = -1;
     this.selectedRowIndexIsExpense = -1;
+    this.deleteRowIndexValue = -1;
   }
 
   ngOnInit() {
     this.refresh();
   }
 
+  deleteRowIndexValue = -1;
   
   origValue = 0;
   origDesc = '';
@@ -51,10 +54,35 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     this.tempIndex = ind;
     //console.log(ind);
   }
-
-  deleteEntry(entry: EntryElement) {
-    this.deleteDialog.open(DeleteEntryComponent, { data: { entry } });
+  
+  logDeleteIndex(ind: any) {
+    this.deleteRowIndexValue = ind;
   }
+  
+  deleteEntry(entry: EntryElement) {
+    console.log(this.deleteRowIndexValue);
+    this.deleteDialog.open(DeleteEntryComponent, { data: { entry } }).afterClosed().subscribe(() => { this.deleteRefresh(); });
+  }
+
+  deleteRefresh() {
+    this.deleteRowIndexValue = -1;
+    this.service.getAll().subscribe((data) => {
+      this.dataSource = new MatTableDataSource<EntryElement>(data as EntryElement[]);
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  //removeFocus() {
+  //  let buttonsList = document.getElementsByClassName('mat-raised-button');
+  //  //iterate through all buttons
+  //  for (let i = 0; i < buttonsList.length; i++) {
+  //    //if the button is the one we want
+  //    if (buttonsList[i].textContent === 'Delete') {        
+  //      buttonsList[i].classList.remove("cdk-focused");
+  //      buttonsList[i].classList.remove("cdk-program-focused");
+  //    }
+  //  }
+  //}
 
   updateEntry(entry: EntryElement) {
     //console.log(entry);
@@ -62,7 +90,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     this.origValue = entry.Value;
     this.origDesc = entry.Description;
     this.origIsExpense = entry.IsExpense;
-    this.dialog.open(UpdateEntryComponent, { data: { ID: entry.ID, Description: entry.Description, IsExpense: entry.IsExpense, Value: entry.Value } }).afterClosed().subscribe(result => { this.refresh(); });
+    this.dialog.open(UpdateEntryComponent, { data: { ID: entry.ID, Description: entry.Description, IsExpense: entry.IsExpense, Value: entry.Value } }).afterClosed().subscribe(() => { this.refresh(); });
     //this.dialog.open(UpdateEntryComponent, { data: { ID: entry.ID, Description: entry.Description, IsExpense: entry.IsExpense, Value: entry.Value } });
   }
 

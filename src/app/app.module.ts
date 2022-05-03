@@ -21,6 +21,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { UpdateEntryComponent } from './update-entry/update-entry.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DeleteEntryComponent } from './delete-entry/delete-entry.component';
+import { DetailsEntryComponent } from './details-entry/details-entry.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import { DeleteEntryComponent } from './delete-entry/delete-entry.component';
     HeaderComponent,
     NewEntryComponent,
     UpdateEntryComponent,
-    DeleteEntryComponent
+    DeleteEntryComponent,
+    DetailsEntryComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ import { DeleteEntryComponent } from './delete-entry/delete-entry.component';
     MatSelectModule,
     MatToolbarModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDividerModule,
+    MatListModule
   ],
   entryComponents: [UpdateEntryComponent],
   providers: [EntryService],

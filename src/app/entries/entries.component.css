@@ -1,5 +1,5 @@
 table {
-    width: 50%;
+  width: 50%;
 }
 /*.mat-row.highlight {*/
   /*background: lightblue;
@@ -7,9 +7,15 @@ table {
   /*animation: opacity linear .5s 2 forwards;
   opacity: 1;
 }*/
+
+.mat-row.highlight {
+  background-color:Highlight;
+  opacity: 0.5;
+}
+
 .mat-column-Actions {
   flex: none;
-  width:28%;
+  width: 36%;
 }
 .entries-table-bottom-container {
   display: inline-block;
