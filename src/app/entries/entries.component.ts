@@ -19,10 +19,10 @@ export class EntriesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
     paginator!: MatPaginator;
 
-  constructor(private service: EntryService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef, private deleteDialog: MatDialog) { }
+  constructor(private service: EntryService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef, private deleteDialog: MatDialog, private activatedRoute: ActivatedRoute) { }
 
   ngAfterViewInit() {
-    /*this.dataSource.paginator = this.paginator;*/
+    //this.dataSource.paginator = this.paginator;
   }
 
   onPaginateChange(event: any) {
@@ -31,11 +31,19 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     this.selectedRowIndexDesc = -1;
     this.selectedRowIndexIsExpense = -1;
     this.deleteRowIndexValue = -1;
+    this.pIndex = event.pageIndex;
   }
 
   ngOnInit() {
+    //const entry: EntryElement = { Description:'', Value: 0, IsExpense:false,ID:0};
     this.refresh();
   }
+  pageNum: any;
+  pIndex: any;
+
+  newValue = 0;
+  newDesc = '';
+  newIsExpense: any;
 
   deleteRowIndexValue = -1;
   
@@ -66,7 +74,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
 
   deleteRefresh() {
     this.deleteRowIndexValue = -1;
-    this.service.getAll().subscribe((data) => {
+    this.service.getAll().subscribe((data:any) => {
       this.dataSource = new MatTableDataSource<EntryElement>(data as EntryElement[]);
       this.dataSource.paginator = this.paginator;
     });
@@ -87,19 +95,50 @@ export class EntriesComponent implements OnInit, AfterViewInit {
   updateEntry(entry: EntryElement) {
     //console.log(entry);
     //console.log(entry.ID);
+    //console.log('from edit button: ', entry.Description);
     this.origValue = entry.Value;
     this.origDesc = entry.Description;
     this.origIsExpense = entry.IsExpense;
-    this.dialog.open(UpdateEntryComponent, { data: { ID: entry.ID, Description: entry.Description, IsExpense: entry.IsExpense, Value: entry.Value } }).afterClosed().subscribe(() => { this.refresh(); });
+    this.dialog.open(UpdateEntryComponent, { data: { ID: entry.ID, Description: entry.Description, IsExpense: entry.IsExpense, Value: entry.Value } }).afterClosed().subscribe((data: any) => { this.setValues(data); if (data != null) { this.refresh(); } });
     //this.dialog.open(UpdateEntryComponent, { data: { ID: entry.ID, Description: entry.Description, IsExpense: entry.IsExpense, Value: entry.Value } });
   }
 
+  setValues(data: any) {
+
+    if (data != null) {
+      this.newValue = data.Value;
+      this.newDesc = data.Description;
+      this.newIsExpense = data.IsExpense;
+    }
+    else {
+      let buttonsList = document.getElementsByClassName('mat-raised-button');
+    //iterate through all buttons
+    for (let i = 0; i < buttonsList.length; i++) {
+      //if the button is the one we want
+      if (buttonsList[i].textContent === 'Edit') {        
+        buttonsList[i].classList.remove("cdk-focused");
+        buttonsList[i].classList.remove("cdk-program-focused");
+      }
+    }
+    }
+
+  }
+    
+
   refresh() {
-    this.service.getAll().subscribe((data) => {
+    this.service.getAll().subscribe((data:any) => {
       //console.log('Result - ', data);
+
+      this.pageNum = this.activatedRoute.snapshot.paramMap.get('pIndex');
+      if (this.pageNum != null) {
+        this.paginator.pageIndex = this.pageNum;
+      }
+
       this.dataSource = new MatTableDataSource<EntryElement>(data as EntryElement[]);
       this.dataSource.paginator = this.paginator;
 
+      this.pIndex = this.paginator.pageIndex;
+      
       //console.log('tempIndex: ', this.tempIndex)
       //this.selectedRowIndex = this.tempIndex;
 
@@ -110,14 +149,18 @@ export class EntriesComponent implements OnInit, AfterViewInit {
 
         //console.log('Original Desc: ', this.origDesc);
         //console.log('New Desc: ', fields[this.tempIndex].Description);
+        //console.log('from data: ', data.Description);
 
-        if (this.origValue != fields[this.tempIndex].Value) {
+        /*if (this.origValue != fields[this.tempIndex].Value) {*/
+        if (this.origValue != this.newValue) {
           this.selectedRowIndexValue = this.tempIndex;
         }
-        if (this.origDesc != fields[this.tempIndex].Description) {
+        /*if (this.origDesc != fields[this.tempIndex].Description) {*/
+        if (this.origDesc != this.newDesc) {
           this.selectedRowIndexDesc = this.tempIndex;
         }
-        if (this.origIsExpense != fields[this.tempIndex].IsExpense) {
+        /*if (this.origIsExpense != fields[this.tempIndex].IsExpense) {*/
+        if (this.origIsExpense != this.newIsExpense) {
           this.selectedRowIndexIsExpense = this.tempIndex;
         }
       }

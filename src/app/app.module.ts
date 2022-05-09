@@ -24,6 +24,7 @@ import { DeleteEntryComponent } from './delete-entry/delete-entry.component';
 import { DetailsEntryComponent } from './details-entry/details-entry.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatListModule } from '@angular/material/list';
     NewEntryComponent,
     UpdateEntryComponent,
     DeleteEntryComponent,
-    DetailsEntryComponent
+    DetailsEntryComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

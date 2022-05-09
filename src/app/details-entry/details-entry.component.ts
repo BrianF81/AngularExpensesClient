@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -15,6 +15,7 @@ export class DetailsEntryComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private service: EntryService) { }
 
+  pIndex: any;
   ID: any;
 
   entry = {
@@ -24,6 +25,8 @@ export class DetailsEntryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pIndex = this.activatedRoute.snapshot.paramMap.get('pIndex');
+    console.log(this.pIndex);
     this.ID = this.activatedRoute.snapshot.paramMap.get('ID');
     this.service.getEntryByID(this.ID).subscribe((data:any) => {
       this.entry.description = data.Description;

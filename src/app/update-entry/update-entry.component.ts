@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Type } from '../interfaces/type';
 import { EntryService } from '../entry.service';
+import { EntryElement } from '../interfaces/EntryElement';
 
 @Component({
   selector: 'app-update-entry',
@@ -40,9 +41,13 @@ export class UpdateEntryComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
+      const entry: EntryElement = { Description: '', Value: 0, IsExpense: false, ID: 0 };
+      entry.Description = this.form.value.description;
+      entry.Value = this.form.value.value;
+      entry.IsExpense = this.form.value.isExpense;
       this.form.value.ID = this.ID;
-      this.service.updateEntry(this.ID, this.form.value).subscribe((data) => console.log('Data - ', data));
-      this.dialogRef.close();
+      this.service.updateEntry(this.ID, this.form.value).subscribe((data: any) => { console.log('Data - ', data); });
+      this.dialogRef.close(entry);
     }    
   };
 
