@@ -3,6 +3,9 @@
   <button mat-button routerLink="/entries">View Entries</button>
   <button mat-button routerLink="/new-entry">Create Entry</button>
   <span style="width: 100%; text-align: right;">
-    <button mat-button routerLink="/register">Register</button>
+    <button mat-button *ngIf="auth.isAuthenticated">Welcome, {{ auth.getUserName }}</button>
+    <button mat-button *ngIf="auth.isAuthenticated" (click)="auth.logout()">Logout</button>
+    <button mat-button *ngIf="!auth.isAuthenticated" routerLink="/register">Register</button>
+    <button mat-button *ngIf="!auth.isAuthenticated" routerLink="/login">Login</button>
   </span>
 </mat-toolbar>

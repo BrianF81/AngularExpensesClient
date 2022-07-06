@@ -5,6 +5,7 @@ import { DetailsEntryComponent } from './details-entry/details-entry.component';
 import { EntriesComponent } from './entries/entries.component';
 import { NewEntryComponent } from './new-entry/new-entry.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', component: EntriesComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'entries/page/:pIndex', component: EntriesComponent },
   { path: 'new-entry', component: NewEntryComponent },
   { path: 'details-entry/:ID/:pIndex', component: DetailsEntryComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent }
 
 ]
 

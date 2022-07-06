@@ -20,8 +20,9 @@ export class RegisterComponent  {
 
   onSubmit() {
     delete this.registerForm.value.confirmPassword;
-    this.service.register(this.registerForm.value).subscribe((data) => { console.log(data) });
-    console.log(this.registerForm.value);
+    this.service.register(this.registerForm.value).subscribe((data: any) => { console.log(data); localStorage.setItem('userName', data.UserName); localStorage.setItem('token_value', data.Token); });
+    //console.log(this.registerForm.value);
+    
   }
 
   matchingFields(field1: any, field2: any) {

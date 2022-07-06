@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { NewEntryComponent } from './new-entry/new-entry.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -25,7 +25,8 @@ import { DetailsEntryComponent } from './details-entry/details-entry.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { RegisterComponent } from './register/register.component';
-
+import { LoginComponent } from './login/login.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { RegisterComponent } from './register/register.component';
     UpdateEntryComponent,
     DeleteEntryComponent,
     DetailsEntryComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +49,7 @@ import { RegisterComponent } from './register/register.component';
     MatButtonModule,
     MatTableModule,
     ReactiveFormsModule,
+    FormsModule,
     MatInputModule,
     MatCardModule,
     MatSelectModule,
@@ -54,7 +57,8 @@ import { RegisterComponent } from './register/register.component';
     MatDialogModule,
     MatPaginatorModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatSortModule
   ],
   entryComponents: [UpdateEntryComponent],
   providers: [EntryService],

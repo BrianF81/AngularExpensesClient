@@ -7,12 +7,15 @@ import { UpdateEntryComponent } from '../update-entry/update-entry.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { DeleteEntryComponent } from '../delete-entry/delete-entry.component';
 import { ActivatedRoute } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-entries',
   templateUrl: './entries.component.html',
   styleUrls: ['./entries.component.css']
 })
+  
+
 export class EntriesComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['Description', 'IsExpense', 'Value', 'Actions']
   dataSource: any;
@@ -21,6 +24,8 @@ export class EntriesComponent implements OnInit, AfterViewInit {
 
   constructor(private service: EntryService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef, private deleteDialog: MatDialog, private activatedRoute: ActivatedRoute) { }
 
+  @ViewChild(MatSort) sort: MatSort | undefined;
+  
   ngAfterViewInit() {
     //this.dataSource.paginator = this.paginator;
   }
@@ -38,6 +43,17 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     //const entry: EntryElement = { Description:'', Value: 0, IsExpense:false,ID:0};
     this.refresh();
   }
+
+
+  applyFilter(filterValue: any) {
+
+    this.dataSource.filterPredicate = (data: EntryElement, filter: string) => {
+      //return data.Description.toLowerCase().startsWith(filterValue.target.value.trim().toLowerCase());
+      return data.Description.toLowerCase().includes(filterValue.target.value.trim().toLowerCase());
+    }; 
+    this.dataSource.filter = filterValue.target.value.trim().toLowerCase();
+  }
+
   pageNum: any;
   pIndex: any;
 
@@ -138,7 +154,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
 
       this.pIndex = this.paginator.pageIndex;
-      
+
       //console.log('tempIndex: ', this.tempIndex)
       //this.selectedRowIndex = this.tempIndex;
 
